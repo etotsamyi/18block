@@ -26,6 +26,11 @@
     "lint": "eslint src/**/*.jsx",
     "lint:fix": "eslint src/**/*.jsx --fix --color"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -48,6 +53,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
+    "husky": "^4.2.3",
     "postcss-normalize": "^8.0.1",
     "terser-brunch": "^4.0.0"
   }

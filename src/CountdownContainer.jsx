@@ -132,7 +132,7 @@ export default class CountdownContainer extends React.Component {
           onClick={this.handleDrop}
           disabled={!allTime}
         >
-          reset
+          Сброс
         </Button>
         <div className="clock">
           {minutes < 10 ? ` 0${minutes}` : ` ${minutes}`}
