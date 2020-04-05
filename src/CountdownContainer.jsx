@@ -1,6 +1,6 @@
 import React from 'react';
 import { Slider, Progress, Button } from 'antd';
-import music from './hru.mp3'
+import music from './hru.mp3';
 
 export default class CountdownContainer extends React.Component {
   constructor(props) {
@@ -12,23 +12,21 @@ export default class CountdownContainer extends React.Component {
       allTime: 0,
       progress: 0,
     });
-    
   }
 
   handleSliderChange = (e) => {
-    this.setState({ 
-      seconds: e % 60, 
+    this.setState({
+      seconds: e % 60,
       minutes: e >= 60 ? Math.floor(e / 60) : 0,
-      current: e,
     });
   }
 
   handleSecondsChange = () => (e) => {
-    this.setState({ seconds: e.target.value })
+    this.setState({ seconds: e.target.value });
   }
 
   handleMinutesChange = () => (e) => {
-    this.setState({ minutes: e.target.value })
+    this.setState({ minutes: e.target.value });
   }
 
   run = () => {
@@ -38,15 +36,19 @@ export default class CountdownContainer extends React.Component {
       this.setState({ active: !active });
       this.soundPlay();
     }
-    seconds === 0 ?
-      this.setState({ seconds: 59, minutes: minutes - 1 }) :
+    if (seconds === 0) {
+      this.setState({ seconds: 59, minutes: minutes - 1 });
+    } else {
       this.setState({ seconds: seconds - 1 });
+    }
     this.percentCounting();
   }
 
   handleStartStop = () => {
-    const { seconds, minutes, active, allTime } = this.state;
-    if(allTime === 0) {
+    const {
+      seconds, minutes, active, allTime,
+    } = this.state;
+    if (allTime === 0) {
       this.setState({
         active: !active,
         allTime: Number(minutes) * 60 + Number(seconds),
@@ -63,13 +65,13 @@ export default class CountdownContainer extends React.Component {
 
   handleDrop = () => {
     clearInterval(this.timerID);
-    this.setState({ 
+    this.setState({
       active: 0,
       seconds: 0,
       minutes: 0,
       progress: 0,
       allTime: 0,
-    })
+    });
   }
 
   soundPlay = () => {
@@ -84,17 +86,19 @@ export default class CountdownContainer extends React.Component {
   }
 
   render() {
-    const { minutes, seconds, active, progress, allTime } = this.state;
+    const {
+      minutes, seconds, active, progress, allTime,
+    } = this.state;
 
     return (
       <div>
         <Slider
-            max={3600}
-            min={0}
-            value={Number(minutes) * 60 + Number(seconds)}
-            onChange={e => this.handleSliderChange(e)}
-            disabled = {active}
-            step = {15}
+          max={3600}
+          min={0}
+          value={Number(minutes) * 60 + Number(seconds)}
+          onChange={(e) => this.handleSliderChange(e)}
+          disabled={active}
+          step={15}
         />
         <input
           type="number"
@@ -117,19 +121,23 @@ export default class CountdownContainer extends React.Component {
           disabled={active}
         />
         <Button
-          className="btn" 
+          className="btn"
           onClick={this.handleStartStop}
           disabled={minutes === 0 && seconds === 0}
-          >{active ? 'Пауза' : 'Старт'}
+        >
+          {active ? 'Пауза' : 'Старт'}
         </Button>
-        <Button 
+        <Button
           className="btn"
           onClick={this.handleDrop}
           disabled={!allTime}
-          >Сброс
+        >
+          Сброс
         </Button>
         <div className="clock">
-          {minutes < 10 ? ` 0${minutes}` : ` ${minutes}`} :
+          {minutes < 10 ? ` 0${minutes}` : ` ${minutes}`}
+          {' '}
+          :
           {seconds < 10 ? ` 0${seconds}` : ` ${seconds}`}
         </div>
         <Progress
@@ -138,5 +146,5 @@ export default class CountdownContainer extends React.Component {
         />
       </div>
     );
-  };
-};
+  }
+}

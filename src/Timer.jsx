@@ -37,11 +37,13 @@ export default class Timer extends React.PureComponent {
       mTime: 0,
       hTime: 0,
       active: false,
-    })
+    });
   }
 
   timeToClock = () => {
-    const { msTime, sTime, mTime, hTime } = this.state;
+    const {
+      msTime, sTime, mTime, hTime,
+    } = this.state;
     if (mTime === 60) {
       this.setState({ mTime: 0, hTime: hTime + 1 });
     }
@@ -54,16 +56,24 @@ export default class Timer extends React.PureComponent {
   }
 
   render() {
-    const { msTime, sTime, mTime, hTime, active } = this.state;
+    const {
+      msTime, sTime, mTime, hTime, active,
+    } = this.state;
 
     return (
       <div>
         <Button className="btn" onClick={this.handleStart}>{active ? 'Пауза' : 'Запустить'}</Button>
         <Button className="btn" onClick={this.handleDrop}>Сброс</Button>
         <div className="clock">
-          {hTime < 10 ? `0${hTime}` : `${hTime}`} :
-          {mTime < 10 ? ` 0${mTime}` : ` ${mTime}`} :
-          {sTime < 10 ? ` 0${sTime}` : ` ${sTime}`} :
+          {hTime < 10 ? `0${hTime}` : `${hTime}`}
+          {' '}
+          :
+          {mTime < 10 ? ` 0${mTime}` : ` ${mTime}`}
+          {' '}
+          :
+          {sTime < 10 ? ` 0${sTime}` : ` ${sTime}`}
+          {' '}
+          :
           {msTime < 10 ? ` 0${msTime}` : ` ${msTime}`}
         </div>
       </div>

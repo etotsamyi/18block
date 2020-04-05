@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.0.3",
+    "gh-pages": "^2.2.0",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
@@ -22,8 +23,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "lint": "eslint .",
-    "lint:fix": "eslint src/ --fix --color"
+    "lint": "eslint src/**/*.jsx",
+    "lint:fix": "eslint src/**/*.jsx --fix --color"
   },
   "eslintConfig": {
     "extends": "react-app"
