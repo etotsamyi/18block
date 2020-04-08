@@ -1,8 +1,8 @@
 import React from 'react';
 import { Slider, Progress, Button } from 'antd';
-import music from './hru.mp3';
+import music from '../assets/media/hru.mp3';
 
-export default class CountdownContainer extends React.Component {
+export default class Countdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = ({
@@ -30,7 +30,10 @@ export default class CountdownContainer extends React.Component {
   }
 
   run = () => {
-    const { seconds, minutes, active } = this.state;
+    const {
+      seconds, minutes, active, allTime,
+    } = this.state;
+
     if (minutes === 0 && seconds === 1 && active) {
       clearInterval(this.timerID);
       this.setState({ active: !active });
@@ -41,7 +44,8 @@ export default class CountdownContainer extends React.Component {
     } else {
       this.setState({ seconds: seconds - 1 });
     }
-    this.percentCounting();
+    const currentValue = (Number(minutes) * 60 + Number(seconds)) / allTime;
+    this.setState({ progress: Math.round(100 - currentValue * 100) });
   }
 
   handleStartStop = () => {
@@ -77,12 +81,6 @@ export default class CountdownContainer extends React.Component {
   soundPlay = () => {
     const audio = new Audio(music);
     audio.play();
-  }
-
-  percentCounting = () => {
-    const { minutes, seconds, allTime } = this.state;
-    const currentValue = (Number(minutes) * 60 + Number(seconds)) / allTime;
-    this.setState({ progress: Math.round(100 - currentValue * 100) });
   }
 
   render() {

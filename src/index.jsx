@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import TabsComponent from './TabsComponent';
+import TabsComponent from './containers/TabsComponent';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<TabsComponent />, document.getElementById('root'));
