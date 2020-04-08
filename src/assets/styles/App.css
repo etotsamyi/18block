@@ -10,7 +10,8 @@ body {
 
 .clock {
   margin: 10px;
-  background-color: red;
+  color: white;
+  background-color: rgb(30, 112, 108);
   width: 100px;
   text-align: center;
 }
