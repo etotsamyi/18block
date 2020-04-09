@@ -32,9 +32,9 @@ export default class Countdown extends React.Component {
     const {
       seconds, minutes, active,
     } = this.state;
-    if (minutes === 0 && seconds === 0 && active) {
+    if (minutes === 0 && seconds === 1 && active) {
       clearInterval(this.timerID);
-      this.setState({ active: !active });
+      this.setState({ seconds: seconds - 1, active: !active });
       this.soundPlay();
       return;
     }
