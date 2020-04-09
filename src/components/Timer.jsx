@@ -6,9 +6,6 @@ export default class Timer extends React.PureComponent {
     super(props);
     this.state = {
       msTime: 0,
-      sTime: 0,
-      mTime: 0,
-      hTime: 0,
       active: false,
     };
   }
@@ -16,7 +13,6 @@ export default class Timer extends React.PureComponent {
   run = () => {
     const { msTime } = this.state;
     this.setState({ msTime: msTime + 1 });
-    this.timeToClock();
   }
 
   handleStart = () => {
@@ -33,32 +29,31 @@ export default class Timer extends React.PureComponent {
     clearInterval(this.timerID);
     this.setState({
       msTime: 0,
-      sTime: 0,
-      mTime: 0,
-      hTime: 0,
       active: false,
     });
   }
 
   timeToClock = () => {
     const {
-      msTime, sTime, mTime, hTime,
+      msTime,
     } = this.state;
-    if (mTime === 60) {
-      this.setState({ mTime: 0, hTime: hTime + 1 });
-    }
-    if (sTime === 60) {
-      this.setState({ sTime: 0, mTime: mTime + 1 });
-    }
-    if (msTime === 100) {
-      this.setState({ msTime: 0, sTime: sTime + 1 });
-    }
+    const sTime = Math.floor(msTime / 100);
+    const mTime = Math.floor(sTime / 60);
+    const hTime = Math.floor(mTime / 60);
+
+    return {
+      msTime: msTime % 100,
+      sTime: sTime - (mTime * 60),
+      mTime: mTime - (hTime * 60),
+      hTime,
+    };
   }
 
   render() {
     const {
-      msTime, sTime, mTime, hTime, active,
-    } = this.state;
+      msTime, sTime, mTime, hTime,
+    } = this.timeToClock();
+    const { active } = this.state;
 
     return (
       <div>

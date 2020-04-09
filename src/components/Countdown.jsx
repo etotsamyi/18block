@@ -12,7 +12,10 @@ export default class Countdown extends React.Component {
   secondsToBeautifulTime = () => {
     const { seconds } = this.state;
     const minute = Math.floor(seconds / 60);
-    return { minute, second: seconds - minute * 60 };
+    return {
+      minute: minute < 10 ? `0${minute}` : minute,
+      second: seconds % 60 < 10 ? `0${seconds - minute * 60}` : seconds - minute * 60,
+    };
   }
 
   handleSliderChange = (e) => {
@@ -21,15 +24,15 @@ export default class Countdown extends React.Component {
     });
   }
 
-  handleSecondsChange = () => (e) => {
+  handleSecondsChange = (e) => {
     const { seconds } = this.state;
     const prevTime = seconds;
-    this.setState({ seconds: prevTime + Number(e.target.value) });
+    this.setState({ seconds: Number(e.target.value) + (prevTime - (prevTime % 60)) });
   }
 
-  handleMinutesChange = () => (e) => {
+  handleMinutesChange = (e) => {
     const { seconds } = this.state;
-    const prevTime = seconds;
+    const prevTime = seconds % 60;
     this.setState({ seconds: prevTime + Number(e.target.value) * 60 });
   }
 
@@ -37,7 +40,7 @@ export default class Countdown extends React.Component {
     const {
       seconds, active,
     } = this.state;
-    if (seconds === 0) {
+    if (seconds === 1) {
       clearInterval(this.timerID);
       this.setState({ seconds: seconds - 1, active: !active });
       this.soundPlay();
@@ -102,7 +105,7 @@ export default class Countdown extends React.Component {
           min="0"
           max="720"
           value={minute}
-          onChange={this.handleMinutesChange()}
+          onChange={this.handleMinutesChange}
           className="btn"
           placeholder="минуты"
           disabled={active}
@@ -112,7 +115,7 @@ export default class Countdown extends React.Component {
           min="0"
           max="59"
           value={second}
-          onChange={this.handleSecondsChange()}
+          onChange={this.handleSecondsChange}
           className="btn"
           placeholder="секунды"
           disabled={active}
