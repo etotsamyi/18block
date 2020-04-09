@@ -2,16 +2,19 @@ body {
   margin-top: 10%;
   margin-left: 25%;
   width: 50%;
+  min-height: 320px;
   height: 40%;
   border: 1px solid;
   border-radius: 10px;
+  border-width: 5px;
+  border-color: teal;
   padding: 5px;
 }
 
 .clock {
   margin: 10px;
   color: white;
-  background-color: rgb(30, 112, 108);
+  background-color: teal;
   width: 100px;
   text-align: center;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Slider, Progress, Button } from 'antd';
-import music from '../assets/media/hru.mp3';
+import music from '../assets/media/timer-end.mp3';
 
 export default class Countdown extends React.Component {
   constructor(props) {
@@ -10,7 +10,6 @@ export default class Countdown extends React.Component {
       seconds: 0,
       active: false,
       allTime: 0,
-      progress: 0,
     });
   }
 
@@ -31,21 +30,19 @@ export default class Countdown extends React.Component {
 
   run = () => {
     const {
-      seconds, minutes, active, allTime,
+      seconds, minutes, active,
     } = this.state;
-
-    if (minutes === 0 && seconds === 1 && active) {
+    if (minutes === 0 && seconds === 0 && active) {
       clearInterval(this.timerID);
       this.setState({ active: !active });
       this.soundPlay();
+      return;
     }
     if (seconds === 0) {
       this.setState({ seconds: 59, minutes: minutes - 1 });
     } else {
       this.setState({ seconds: seconds - 1 });
     }
-    const currentValue = (Number(minutes) * 60 + Number(seconds)) / allTime;
-    this.setState({ progress: Math.round(100 - currentValue * 100) });
   }
 
   handleStartStop = () => {
@@ -73,7 +70,6 @@ export default class Countdown extends React.Component {
       active: 0,
       seconds: 0,
       minutes: 0,
-      progress: 0,
       allTime: 0,
     });
   }
@@ -85,8 +81,10 @@ export default class Countdown extends React.Component {
 
   render() {
     const {
-      minutes, seconds, active, progress, allTime,
+      minutes, seconds, active, allTime,
     } = this.state;
+    const currentValue = (Number(minutes) * 60 + Number(seconds)) / allTime;
+    const progress = Math.round(100 - currentValue * 100);
 
     return (
       <div>
